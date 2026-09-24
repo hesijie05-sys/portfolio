@@ -1,11 +1,19 @@
-# Mia盒 · IP / 毛绒设计师
+# Mia盒 · 设计作品集
 
-个人作品集静态网站。
+静态作品集网站，发布于 https://hesijie05-sys.github.io/portfolio/ 。
 
-## GitHub Pages 发布
+首页直接展示作品分类与图片。点击项目可查看从原始 PDF 拆分的作品图片、工艺信息及简短说明；支持大图、键盘关闭、浏览器返回和手机布局。
 
-在 Settings → Pages 中选择 Deploy from a branch，分支选择 main，目录选择 / (root)，点击 Save。
+- `index.html`：页面结构与联系方式。
+- `style.css`：响应式视觉样式。
+- `app.js`：分类、详情、大图和联系入口。
+- `projects.js`：项目与图片数据。
+- `assets/products/`：IP、毛绒及周边项目的独立素材。
+- `assets/visual/`：插画、三维、书籍和海报素材。
+- `assets/area51/`：外外项目公开作品图片。
 
-发布地址：https://hesijie05-sys.github.io/portfolio/
+使用 GitHub Pages 的 main 分支根目录发布，无需构建。项目图片路径使用相对路径，支持 /portfolio/ 子目录。
 
-网站入口为 index.html，项目内容在 app.js，样式在 style.css，图片位于仓库根目录。
+外外的笔袋照片展示挂件的应用场景；项目不包含笔袋设计。协作画师、AI 辅助、概念设计及历史传播数据的说明保留在各项目资料中。
+
+旧 `page-XX.jpg` 等文件保留为历史素材，新网站不再引用整页作品集截图。

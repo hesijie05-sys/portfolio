@@ -1,11 +1,121 @@
-const projects=[
-{title:'毛绒周边：从设计稿到商品上线',category:'01 / 产品开发 · 生产对接 · 商品落地',cover:'page-21.jpg',desc:'独立完成角色提炼、结构草图、厂家打样、宣图、销售与发货管理，形成完整的产品开发闭环。',detail:'基于真人形象进行毛绒娃娃的 IP 转化设计。通过淘宝与闲鱼上线销售，并收集预售群反馈与买家返图。作品集记录了从设计稿、生产沟通到大货及实际购买反馈的全过程。',pages:[21]},
-{title:'原创毛绒角色与玩偶设计',category:'02 / 原创 IP · 三视图 · 材质与工艺',cover:'page-07.jpg',desc:'以鲜明的角色性格展开造型设计，延伸至挂件、暖手宝、包装与产品场景。',detail:'包含虫脚梨玩偶及猫兔毛绒系列。通过三视图、材质规划和包装设计，将角色语言转化为可执行的产品方案，并展示实物与使用场景。',pages:[5,6,7]},
-{title:'个人 IP「小盒」',category:'03 / 角色开发 · 表情包 · 内容传播',cover:'page-12.jpg',desc:'从原创角色设定到小漫画、表情包与平台内容，单条内容展示约 197 万播放、53.3 万点赞。',detail:'围绕个人原创 IP 持续创作小漫画与表情包，并进行社交平台发布。作品集截图显示，代表内容约 197 万播放、53.3 万点赞，全站排行榜最高第 37 名。以上为作品集记录的数据，并非实时统计。',pages:[12]},
-{title:'衍生品设计与整套宣图',category:'04 / 周边企划 · 工艺分层 · 视觉系统',cover:'page-18.jpg',desc:'围绕同一角色扩展小卡、透扇、亚克力立牌与吧唧，让多种材质保持一致的视觉表达。',detail:'作品覆盖 350g 圆角哑膜小卡、PVC 异型透扇、亚克力满版立牌、44mm 变色镭膜吧唧，以及立绘与商品宣图。设计包含刀线、背卡与工艺分层。',pages:[15,16,17,18,19,20]},
-{title:'插画与角色的三维表达',category:'05 / 数字插画 · VRoid · 低模渲染',cover:'page-09.jpg',desc:'从二次元插画与立绘，到 VRoid 角色和低模小物，探索角色在不同媒介中的呈现。',detail:'包含数字插画、角色立绘、VRoid 角色建模及低模制作与渲染。同时展示哥特主题盲盒角色方案、品牌 IP 与包装设计，以及约稿企划和画师沟通流程。',pages:[23,24,25,26,27,8,9,10,11,13]},
-{title:'书籍、平面与摄影',category:'06 / 编辑设计 · 版式 · 品牌视觉',cover:'page-31.jpg',desc:'通过图像、文字与纸张的组织，构建从封面到内页、从展示册到海报的完整阅读体验。',detail:'作品包含书籍封面和内页编排、展示册、摄影与海报设计。关注字体层级、图像节奏及实体书籍的呈现。',pages:[29,30,31,32,33,34,35,36]}
-];
-const grid=document.querySelector('#projects'),dialog=document.querySelector('#project-dialog');
-projects.forEach((p,i)=>{const el=document.createElement('article');el.className='project';el.innerHTML=`<button type="button" aria-label="查看${p.title}"><div class="project-image"><img src="${p.cover}" alt="${p.title}作品展示" loading="lazy"><span class="view">查看项目 ↗</span></div><div class="project-meta">${p.category}</div><h3>${p.title}</h3></button><p>${p.desc}</p>`;el.querySelector('button').onclick=()=>{document.querySelector('#dialog-title').textContent=p.title;document.querySelector('#dialog-content').innerHTML=`<p>${p.detail}</p>`+p.pages.map(n=>`<img src="page-${String(n).padStart(2,'0')}.jpg" alt="${p.title}，作品集第 ${n} 页" loading="lazy">`).join('');dialog.showModal();dialog.scrollTop=0;document.body.classList.add('modal-open')};grid.append(el)});
-document.querySelector('#close-dialog').onclick=()=>dialog.close();dialog.addEventListener('close',()=>document.body.classList.remove('modal-open'));dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});document.querySelector('#copy').onclick=async()=>{const s=document.querySelector('#copy-status');try{await navigator.clipboard.writeText('HSJ_05');s.textContent='已复制'}catch{s.textContent='请手动复制：HSJ_05'}};
+(() => {
+  'use strict';
+  const projects = window.PORTFOLIO_PROJECTS || [];
+  const grid = document.querySelector('#projects');
+  const dialog = document.querySelector('#project-dialog');
+  const contact = document.querySelector('#contact-dialog');
+  const labels = {ip:'IP / 毛绒', product:'周边产品', illustration:'插画 / 3D', visual:'平面 / 书籍'};
+  let filter = 'all', returnFocus = null, routeOpenedHere = false;
+  const node = (tag, className, text) => {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text) el.textContent = text;
+    return el;
+  };
+  const visibleProjects = () => projects.filter(p => filter === 'all' || p.categories.includes(filter));
+  const lockPage = () => document.body.classList.toggle('modal-open', Boolean(document.querySelector('dialog[open]')));
+  function makeImage(media, eager = false) {
+    const img = new Image();
+    img.src = media.src; img.alt = media.alt || '';
+    img.loading = eager ? 'eager' : 'lazy'; img.decoding = 'async';
+    if (media.width) img.width = media.width;
+    if (media.height) img.height = media.height;
+    img.addEventListener('error', () => img.replaceWith(node('span','image-error','图片暂时无法显示')), {once:true});
+    return img;
+  }
+  function renderGrid() {
+    grid.replaceChildren();
+    const selected = visibleProjects();
+    selected.forEach((p,i) => {
+      const article = node('article','project-card');
+      const button = node('button','project-link'); button.type = 'button';
+      button.dataset.project = p.id; button.setAttribute('aria-label','查看'+p.title);
+      const cover = node('div','project-cover '+(p.coverFit || 'contain')+(p.coverPadding ? ' padded' : ''));
+      if(p.coverColor) cover.style.backgroundColor=p.coverColor;
+      cover.append(makeImage({src:p.cover,alt:p.coverAlt || p.title},i<2));
+      const arrow = node('span','open-indicator','↗'); arrow.setAttribute('aria-hidden','true'); cover.append(arrow);
+      const caption = node('div','project-caption');
+      caption.append(node('h2','',p.title),node('span','',p.caption || labels[p.categories[0]]));
+      button.append(cover,caption);
+      button.addEventListener('click',() => {returnFocus=button; routeOpenedHere=true; location.hash='project='+encodeURIComponent(p.id);});
+      article.append(button); grid.append(article);
+    });
+    document.querySelector('#result-status').textContent = `${selected.length} 组作品`;
+    document.querySelectorAll('[data-filter]').forEach(button=>{
+      const active=button.dataset.filter===filter;
+      button.classList.toggle('active',active); button.setAttribute('aria-pressed',String(active));
+      const count=button.dataset.filter==='all' ? projects.length : projects.filter(p=>p.categories.includes(button.dataset.filter)).length;
+      button.querySelector('.count').textContent=String(count).padStart(2,'0');
+    });
+  }
+  function openLightbox(media){
+    const lightbox=node('dialog','lightbox'); lightbox.setAttribute('aria-label',media.alt || '作品大图');
+    const close=node('button','lightbox-close','关闭 ×'); close.type='button'; close.onclick=()=>lightbox.close();
+    lightbox.append(close,makeImage(media,true));
+    if(media.alt) lightbox.append(node('p','lightbox-caption',media.alt));
+    lightbox.addEventListener('close',()=>{lightbox.remove();lockPage();});
+    lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.close();});
+    document.body.append(lightbox); lightbox.showModal(); lockPage();
+  }
+  function renderProject(p){
+    document.querySelector('#project-title').textContent=p.title; document.title=p.title+' · Mia盒';
+    const content=document.querySelector('#project-content'); content.replaceChildren();
+    const details=node('details','project-info'); const summary=node('summary');
+    summary.append(node('span','','项目信息'),node('span','','+'));
+    const info=node('div','project-info-body'), narrative=node('div');
+    narrative.append(node('p','',p.summary));
+    if(p.note) narrative.append(node('p','',p.note));
+    if(p.link){const a=node('a','',p.link.label); a.href=p.link.url;a.target='_blank';a.rel='noopener noreferrer';narrative.append(a);}
+    const role=node('p','role'); role.append(node('b','','我的职责'),document.createTextNode(p.role));
+    info.append(narrative,role);details.append(summary,info);content.append(details);
+    p.sections.forEach((section,si)=>{
+      const block=node('section','project-section'), meta=node('div','section-meta');
+      meta.append(node('h3','',section.label));
+      if(section.text)meta.append(node('p','',section.text));
+      const mediaGrid=node('div','image-grid'+(section.images.length===1?' single':section.columns===3?' three':''));
+      section.images.forEach((media,i)=>{
+        const figure=node('figure','work-image'), button=node('button','image-button');
+        button.type='button';button.setAttribute('aria-label','放大：'+media.alt);
+        const img=makeImage(media,si===0 && i<2);
+        // Small source details stay at their native resolution.
+        if(media.width && media.width<700) img.style.maxWidth=media.width+'px';
+        button.append(img);button.onclick=()=>openLightbox(media);figure.append(button);
+        if(media.alt)figure.append(node('figcaption','',media.alt));
+        mediaGrid.append(figure);
+      });
+      block.append(meta,mediaGrid);content.append(block);
+    });
+    let collection=visibleProjects(); if(!collection.includes(p))collection=projects;
+    const index=collection.indexOf(p);
+    document.querySelector('#project-position').textContent=String(index+1).padStart(2,'0')+' / '+String(collection.length).padStart(2,'0');
+    const prev=document.querySelector('#previous-project'),next=document.querySelector('#next-project');
+    prev.disabled=index===0;next.disabled=index===collection.length-1;
+    prev.onclick=()=>changeProject(collection[index-1]);next.onclick=()=>changeProject(collection[index+1]);
+    if(!dialog.open)dialog.showModal(); dialog.scrollTop=0;
+    document.querySelector('#close-project').focus({preventScroll:true});lockPage();
+  }
+  function changeProject(p){if(!p)return;history.replaceState(null,'','#project='+encodeURIComponent(p.id));renderProject(p);}
+  function closeProject(){
+    if(routeOpenedHere && location.hash.startsWith('#project='))history.back();
+    else {history.replaceState(null,'',location.pathname+location.search);syncRoute();}
+  }
+  function syncRoute(){
+    document.querySelectorAll('dialog.lightbox').forEach(box=>box.close());
+    let id='';try{if(location.hash.startsWith('#project='))id=decodeURIComponent(location.hash.slice(9));}catch{}
+    const p=projects.find(p=>p.id===id);
+    if(p)renderProject(p);
+    else {if(dialog.open)dialog.close();document.title='Mia盒 · 设计作品集';routeOpenedHere=false;}
+  }
+  document.querySelectorAll('[data-filter]').forEach(button=>button.onclick=()=>{filter=button.dataset.filter;renderGrid();});
+  document.querySelector('#close-project').onclick=closeProject;
+  dialog.addEventListener('cancel',e=>{e.preventDefault();closeProject();});
+  dialog.addEventListener('close',()=>{lockPage();if(returnFocus?.isConnected)returnFocus.focus({preventScroll:true});});
+  document.querySelectorAll('[data-contact]').forEach(button=>button.onclick=()=>{document.querySelector('#copy-status').textContent='';contact.showModal();lockPage();});
+  contact.querySelector('.close-contact').onclick=()=>contact.close();contact.addEventListener('close',lockPage);
+  contact.addEventListener('click',e=>{if(e.target!==contact)return;const r=contact.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)contact.close();});
+  document.querySelector('#copy-wechat').onclick=async()=>{
+    try{await navigator.clipboard.writeText('HSJ_05');document.querySelector('#copy-status').textContent='微信号已复制';}
+    catch{document.querySelector('#copy-status').textContent='微信号：HSJ_05，可长按或选中复制';}
+  };
+  window.addEventListener('hashchange',syncRoute);renderGrid();syncRoute();
+})();

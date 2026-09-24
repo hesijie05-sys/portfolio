@@ -308,7 +308,7 @@ window.PORTFOLIO_EN = {
   "教育": "Education",
   "复制": "Copy",
   "英国布莱顿大学": "University of Brighton",
-  "本科 · 视觉传达艺术设计": "Undergraduate study · Visual Communication Art and Design",
+  "本科 · 插画": "BA Illustration",
   "请启用 JavaScript 浏览分类作品，或": "Please enable JavaScript to browse projects, or ",
   "查看外外项目": "view the Waiwai project",
   "设计作品集": "Design Portfolio"

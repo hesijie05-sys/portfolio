@@ -70,9 +70,48 @@ window.PORTFOLIO_PROJECTS = [
             "height": 1027
           }
         ]
+      },
+      {
+        "label": "毛绒玩具工单",
+        "images": [
+          {
+            "src": "assets/area51/tech-pack-plush.webp",
+            "alt": "毛绒玩具工单",
+            "width": 2400,
+            "height": 1350
+          }
+        ]
+      },
+      {
+        "label": "植绒挂件工单",
+        "images": [
+          {
+            "src": "assets/area51/tech-pack-flocked-charm.webp",
+            "alt": "植绒挂件工单",
+            "width": 2400,
+            "height": 1350
+          }
+        ]
+      },
+      {
+        "label": "坐垫工单",
+        "images": [
+          {
+            "src": "assets/area51/tech-pack-cushion.webp",
+            "alt": "坐垫工单",
+            "width": 2400,
+            "height": 1350
+          }
+        ]
       }
     ],
-    "coverPadding": false
+    "coverPadding": false,
+    "downloads": [
+      {
+        "url": "assets/downloads/area51-tech-packs.pdf",
+        "label": "下载三款产品工单 PDF"
+      }
+    ]
   },
   {
     "id": "plush-pair",

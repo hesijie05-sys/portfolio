@@ -8,3 +8,5 @@
 /* Bilingual navigation and longer English labels. */
 .language-toggle{font-size:12px;white-space:nowrap;min-width:30px}.header-links button span{margin-left:0}.header-links button span[aria-hidden]{margin-left:6px}.toolbar-actions{display:flex;gap:22px;align-items:center;justify-self:end;font-size:11px;color:var(--muted)}.toolbar-actions button{color:var(--ink)}.brand>span:first-child:empty{margin:0}.contact-details>div{grid-template-columns:66px 1fr}.project-caption h2{overflow-wrap:anywhere}.section-meta h3{white-space:normal}
 @media(max-width:540px){.header-links{gap:18px}.project-caption{flex-wrap:wrap;gap:3px 12px}.project-toolbar{grid-template-columns:auto minmax(0,1fr) auto;gap:12px}.project-toolbar h2{text-align:center}.toolbar-actions{gap:0}.toolbar-actions #project-position{display:none}.category-bar{gap:12px 22px}html[lang="en"] .category{font-size:16px}}
+
+.project-downloads{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 32px}.download-link{font-size:13px;border-bottom:1px solid currentColor;padding:4px 0}

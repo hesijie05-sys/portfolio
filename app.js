@@ -87,6 +87,11 @@
     if(p.link){const a=node('a','',p.link.label); a.href=p.link.url;a.target='_blank';a.rel='noopener noreferrer';narrative.append(a);}
     const role=node('p','role'); role.append(node('b','',t('我的职责')),document.createTextNode(p.role));
     info.append(narrative,role);details.append(summary,info);content.append(details);
+    if(p.downloads){
+      const links=node('div','project-downloads');
+      p.downloads.forEach(file=>{const a=node('a','download-link',file.label+' ↓');a.href=file.url;a.download='';links.append(a);});
+      content.append(links);
+    }
     p.sections.forEach((section,si)=>{
       const block=node('section','project-section'), meta=node('div','section-meta');
       meta.append(node('h3','',section.label));

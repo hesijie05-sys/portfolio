@@ -313,3 +313,11 @@ window.PORTFOLIO_EN = {
   "查看外外项目": "view the Waiwai project",
   "设计作品集": "Design Portfolio"
 };
+
+Object.assign(window.PORTFOLIO_EN, {
+  "毛绒玩具工单": "Plush toy tech pack",
+  "植绒挂件工单": "Flocked charm tech pack",
+  "坐垫工单": "Cushion tech pack",
+  "下载三款产品工单 PDF": "Download all three tech packs (PDF)",
+  "下载作品集 PDF": "Download portfolio (PDF)"
+});

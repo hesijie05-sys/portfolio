@@ -321,3 +321,16 @@ Object.assign(window.PORTFOLIO_EN, {
   "下载三款产品工单 PDF": "Download all three tech packs (PDF)",
   "下载作品集 PDF": "Download portfolio (PDF)"
 });
+
+Object.assign(window.PORTFOLIO_EN, {
+  "为什么选择坐垫？": "Why a cushion?",
+  "外星人坐垫主要面向年轻人和学生。无论学习还是工作，长时间坐着都是常见的日常场景，因此我选择了实用、使用频率高的坐垫作为载体，让外星人的陪伴融入日常生活。": "The alien cushion is designed for young people, especially students. Studying and working often mean spending long periods sitting down, so I chose a practical, frequently used object that brings the character into everyday life.",
+  "奇奇怪怪的人，也有自己的同类": "Even the odd ones have their own kind",
+  "我希望外星人传达的是：“奇奇怪怪的人，也有自己的同类。”当你觉得自己和周围人不一样时，也许只是彼此属于“不同的物种”。这个角色用轻松、幽默的方式回应那种格格不入的感受，让人感到自己的不同也能被理解。": "I want the alien to say: “Even the odd ones have their own kind.” When you feel different from the people around you, perhaps you simply belong to a different species. The character responds to that sense of being out of place with humour, offering a little recognition and understanding.",
+  "灵感来源": "Where the idea began",
+  "这个概念来自生活中与周围人格格不入的感受。我想借“外星人”重新解释这种不同，把“不合群”转化为一种更轻松、有趣的身份认同。": "The idea came from moments of feeling out of place in everyday life. Through the alien character, I wanted to reinterpret that difference and turn not fitting in into a lighter, more playful sense of identity.",
+  "外表疲惫，内心有趣": "A tired face, a playful personality",
+  "虫脚梨希望与那些有点冷幽默、有点闷骚的人产生共鸣。他们表面上可能显得疲惫、冷淡，真正熟悉之后，却会流露出诙谐又可爱的一面。疲惫的表情、明亮的身体与怪诞虫脚的组合，正是这种内外反差的体现。": "Bug-Legged Pear is made for people with a dry sense of humour and a playful side that takes time to reveal itself. They may seem tired or aloof at first, but become funny and endearing once you get to know them. Its weary expression, bright body and peculiar insect legs give that contrast a physical form."
+});
+
+Object.assign(window.PORTFOLIO_EN, {"情感共鸣": "Emotional connection"});
